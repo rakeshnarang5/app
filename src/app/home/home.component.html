@@ -1,0 +1,402 @@
+<div class="app-body">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+                    <div class="card mx-4">
+                        <div class="card-body p-4">
+                            <form>
+                                <h1>In hand salary calculator</h1>
+                                <p class="text-muted">Calculate your in hand salary.</p>
+
+                                <!--ctc input-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Total CTC:</span>
+                                    </div>
+                                    <input type="number" class="form-control"
+                                        placeholder="enter your total cost to company" [(ngModel)]="salaryDetails.ctc"
+                                        [ngModelOptions]="{standalone: true}" (ngModelChange)="ctcChange($event)"
+                                        required>
+                                </div>
+
+                                <!--basic input-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Monthly Basic Salary:</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="enter your basic salary"
+                                        [(ngModel)]="salaryDetails.basic" [ngModelOptions]="{standalone: true}"
+                                        [disabled]="true" (ngModelChange)="basicChange()" required>
+                                </div>
+
+                                <!--annual basic input-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Annual Basic Salary:</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="annual basic salary"
+                                        [(ngModel)]="salaryDetails.annualBasic" [ngModelOptions]="{standalone: true}"
+                                        [disabled]="true" required>
+                                </div>
+
+                                <!--annual gratuity-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Annual Gratuity:</span>
+                                    </div>
+                                    <input type="number" class="form-control" [(ngModel)]="salaryDetails.gratuity"
+                                        [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                </div>
+
+                                <!--min basic checkbox-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Calculate PF on minimum basic salary?</span>
+                                    </div>
+                                    <input type="checkbox" class="form-control"
+                                        [(ngModel)]="salaryDetails.calcOnMinBasic" [ngModelOptions]="{standalone: true}"
+                                        (ngModelChange)="calcOnMinBasic()" required>
+                                </div>
+
+                                <!--employer epf-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Annual Employer's EPF:</span>
+                                    </div>
+                                    <input type="number" class="form-control"
+                                        placeholder="enter employer's contribution to epf"
+                                        [(ngModel)]="salaryDetails.epfEmployer" [ngModelOptions]="{standalone: true}"
+                                        [disabled]="true" required>
+                                </div>
+
+                                <!-- monthly employer epf-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Monthly Employer's EPF:</span>
+                                    </div>
+                                    <input type="number" class="form-control"
+                                        placeholder="enter employer's contribution to epf"
+                                        [(ngModel)]="salaryDetails.monthlyEpfEmployer"
+                                        [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                </div>
+
+                                <!--employee epf-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Annual Employee's EPF:</span>
+                                    </div>
+                                    <input type="number" class="form-control"
+                                        placeholder="enter employee's contribution to epf"
+                                        [(ngModel)]="salaryDetails.epfEmployee" [ngModelOptions]="{standalone: true}"
+                                        [disabled]="true" required>
+                                </div>
+
+                                <!--monthly epf-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Monthly Employee's EPF:</span>
+                                    </div>
+                                    <input type="number" class="form-control"
+                                        placeholder="enter employee's contribution to epf"
+                                        [(ngModel)]="salaryDetails.monthlyEpfEmployee"
+                                        [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                </div>
+
+                                <!--hra-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Annual HRA in CTC:</span>
+                                    </div>
+                                    <input type="number" class="form-control" [(ngModel)]="salaryDetails.hra"
+                                        [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                </div>
+
+                                <!--hra-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Monthly HRA in CTC:</span>
+                                    </div>
+                                    <input type="number" class="form-control" [(ngModel)]="salaryDetails.hraMonthly"
+                                        [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                </div>
+
+                                <!--live in a metro checkbox-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Do you live in a metro city? (e.g. Delhi,
+                                            Mumbai)</span>
+                                    </div>
+                                    <input type="checkbox" class="form-control"
+                                        [(ngModel)]="salaryDetails.metroResident" [ngModelOptions]="{standalone: true}"
+                                        (ngModelChange)="metroResident()" required>
+                                </div>
+
+                                <!--actual rent paid-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Actual Rent Paid:</span>
+                                    </div>
+                                    <input type="number" class="form-control"
+                                        placeholder="enter the rent that you actually paid"
+                                        [(ngModel)]="salaryDetails.rentPaid" [ngModelOptions]="{standalone: true}"
+                                        (ngModelChange)="rentPaidChange()" required>
+                                </div>
+
+                                <!--annual hra exemption-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Annual HRA Exemption:</span>
+                                    </div>
+                                    <input type="number" class="form-control" [(ngModel)]="salaryDetails.hraExemption"
+                                        [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                </div>
+
+                                <!--opted for mediclaim?-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Have you opted for a mediclaim policy?</span>
+                                    </div>
+                                    <input type="checkbox" class="form-control"
+                                        [(ngModel)]="salaryDetails.optedForMediclaim"
+                                        (ngModelChange)="optedForMediclaim()" [ngModelOptions]="{standalone: true}"
+                                        required>
+                                </div>
+
+                                <div *ngIf="salaryDetails.optedForMediclaim" style="margin: 0 auto">
+
+                                    <div style="margin-left: 50px">
+                                        <!--mediclaim annual-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Annual mediclaim premium amount:</span>
+                                            </div>
+                                            <input type="number" class="form-control"
+                                                [(ngModel)]="salaryDetails.annualMediclaimAmount"
+                                                placeholder="enter annual mediclaim amount"
+                                                (ngModelChange)="annualMediclaimAmount()"
+                                                [ngModelOptions]="{standalone: true}" required>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-left: 50px">
+                                        <!--mediclaim monthly-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Monthly mediclaim premium amount:</span>
+                                            </div>
+                                            <input type="number" class="form-control"
+                                                [(ngModel)]="salaryDetails.monthlyMediclaimAmount" [disabled]="true"
+                                                [ngModelOptions]="{standalone: true}" required>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <!--80c-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">80C Investment Details:</span>
+                                    </div>
+                                    <input type="number" class="form-control" [(ngModel)]="salaryDetails.invest80C"
+                                        placeholder="enter 80C investment details"
+                                        (ngModelChange)="invest80CChange($event)" [ngModelOptions]="{standalone: true}"
+                                        required>
+                                </div>
+
+                                <!--maximize 80c-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Do you want to maximize your 80C
+                                            investments?</span>
+                                    </div>
+                                    <input type="checkbox" class="form-control" [(ngModel)]="salaryDetails.maximize80C"
+                                        [ngModelOptions]="{standalone: true}" (ngModelChange)="maximize80C()" required>
+                                </div>
+
+                                <!--food coupons-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Does your company offer food coupon
+                                            benefits?</span>
+                                    </div>
+                                    <input type="checkbox" class="form-control"
+                                        [(ngModel)]="salaryDetails.foodCouponsAvailable"
+                                        (ngModelChange)="foodCouponsAvailable()" [ngModelOptions]="{standalone: true}"
+                                        required>
+                                </div>
+
+                                <div *ngIf="salaryDetails.foodCouponsAvailable" style="margin: 0 auto">
+
+                                    <div style="margin-left: 50px">
+                                        <!--food coupons-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Would you like to opt for food
+                                                    coupons?</span>
+                                            </div>
+                                            <input type="checkbox" class="form-control"
+                                                [(ngModel)]="salaryDetails.foodCouponsOpted"
+                                                [ngModelOptions]="{standalone: true}"
+                                                (ngModelChange)="foodCouponsOpted()" required>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-left: 50px">
+                                        <!--tax-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Food Coupons Deduction:</span>
+                                            </div>
+                                            <input type="number" class="form-control"
+                                                [(ngModel)]="salaryDetails.foodCouponsDeduction"
+                                                [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!--###-->
+                                <!--CAR LEASE SECTION-->
+                                <!--###-->
+
+                                <!--CAR LEASE-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Does your company offer car lease benefit?</span>
+                                    </div>
+                                    <input type="checkbox" class="form-control"
+                                        [(ngModel)]="salaryDetails.carLeaseAvailable"
+                                        (ngModelChange)="carLeaseAvailable()" [ngModelOptions]="{standalone: true}"
+                                        required>
+                                </div>
+
+                                <div *ngIf="salaryDetails.carLeaseAvailable" style="margin: 0 auto">
+
+                                    <div style="margin-left: 50px">
+                                        <!--CAR RENTAL AMOUNT-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Car rental amount (monthly):</span>
+                                            </div>
+                                            <input type="number" class="form-control"
+                                                [(ngModel)]="salaryDetails.monthlyCarLeaseAmount"
+                                                [ngModelOptions]="{standalone: true}"
+                                                (ngModelChange)="monthlyCarLeaseAmount()" required>
+                                        </div>
+
+                                        <!--CAR RENTAL AMOUNT-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Car rental amount (yearly):</span>
+                                            </div>
+                                            <input type="number" class="form-control"
+                                                [(ngModel)]="salaryDetails.yearlyCarLeaseAmount"
+                                                [ngModelOptions]="{standalone: true}" required>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-left: 50px">
+                                        <!--DRIVER'S SALARY DEDUCTION-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Driver's salary deduction
+                                                    (monthly):</span>
+                                            </div>
+                                            <input type="number" class="form-control"
+                                                [(ngModel)]="salaryDetails.monthlyDriversSalaryAmount"
+                                                [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                        </div>
+
+                                        <!--DRIVER'S SALARY DEDUCTION-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Driver's salary deduction
+                                                    (yearly):</span>
+                                            </div>
+                                            <input type="number" class="form-control"
+                                                [(ngModel)]="salaryDetails.yearlyDriversSalaryAmount"
+                                                [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-left: 50px">
+                                        <!--FUEL AND MAINTAINENCE DEDUCTION-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Fuel and maintainence deduction
+                                                    (monthly):</span>
+                                            </div>
+                                            <input type="number" class="form-control"
+                                                [(ngModel)]="salaryDetails.monthlyFuelAndMaintainenceAmount"
+                                                [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                        </div>
+
+                                        <!--FUEL AND MAINTAINENCE DEDUCTION-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Fuel and maintainence deduction
+                                                    (yearly):</span>
+                                            </div>
+                                            <input type="number" class="form-control"
+                                                [(ngModel)]="salaryDetails.yearlyFuelAndMaintainenceAmount"
+                                                [ngModelOptions]="{standalone: true}" [disabled]="true" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!--tax-->
+                                <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Net Taxable Income:</span>
+                                        </div>
+                                        <input type="number" class="form-control" placeholder="tax"
+                                            [(ngModel)]="salaryDetails.netTaxableIncome" [ngModelOptions]="{standalone: true}"
+                                            [disabled]="true" required>
+                                    </div>
+
+                                <!--tax-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Tax:</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="tax"
+                                        [(ngModel)]="salaryDetails.tax" [ngModelOptions]="{standalone: true}"
+                                        [disabled]="true" required>
+                                </div>
+
+                                <!--tax-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Monthly Tax:</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="monthly tax"
+                                        [(ngModel)]="salaryDetails.monthlyTax" [ngModelOptions]="{standalone: true}"
+                                        [disabled]="true" required>
+                                </div>
+
+
+                                <!--in hand-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Net In hand:</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="net in hand"
+                                        [(ngModel)]="salaryDetails.inHand" [ngModelOptions]="{standalone: true}"
+                                        [disabled]="true" required>
+                                </div>
+
+
+                                <button type="button" (click)="submit()"
+                                    class="btn btn-block btn-success">Submit</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
